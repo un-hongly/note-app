@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Note } from '@/core/models/Note'
-import { useNotesStore } from '@/core/stores/note'
+import type { Note } from '@/types/Note'
+import { useNotesStore } from '@/stores/note'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 

@@ -1,6 +1,6 @@
-import type { Note } from '../models/Note'
+import type { Note } from '@/types/Note'
 import http from './api'
-import type { PaginatedResponse } from './type'
+import type { PaginatedResponse } from '@/types/api'
 
 
 export interface CreateNoteRequest {

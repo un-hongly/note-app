@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/core/stores/auth'
-import type { LoginRequest } from '@/core/api/authApi'
+import { useAuthStore } from '@/stores/auth'
+import type { LoginRequest } from '@/api/authApi'
 import type { AxiosError } from 'axios'
-import type { ErrorResponse } from '@/core/api/type'
+import type { ErrorResponse } from '@/types/api'
 
 const router = useRouter()
 const auth = useAuthStore()

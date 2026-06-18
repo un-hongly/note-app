@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { notesApi, type CreateNoteRequest, type UpdateNoteRequest } from '@/core/api/noteApi'
-import type { Note } from '@/core/models/Note'
+import { notesApi, type CreateNoteRequest, type UpdateNoteRequest } from '@/api/noteApi'
+import type { Note } from '@/types/Note'
 
 export type SortField = 'title' | 'createdAt' | 'updatedAt'
 export type SortDirection = 'asc' | 'desc'

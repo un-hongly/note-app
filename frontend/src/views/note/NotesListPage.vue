@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useNotesStore } from '@/core/stores/note'
-import { useAuthStore } from '@/core/stores/auth'
+import { useNotesStore } from '@/stores/note'
+import { useAuthStore } from '@/stores/auth'
+import NoteListItem from '@/components/NoteListItem.vue'
 
 const router = useRouter()
 const notesStore = useNotesStore()
@@ -26,16 +27,6 @@ async function deleteNote(id: string) {
     await notesStore.deleteNote(id)
   }
 }
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-}
 </script>
 
 <template>
@@ -43,7 +34,6 @@ function formatDate(dateStr: string) {
     <div class="mb-6 flex items-center justify-between">
       <h1 class="text-2xl font-bold text-gray-900">My Notes</h1>
       <div class="flex items-center gap-4">
-        <span class="text-sm text-gray-500">{{ auth.token ? 'Logged in' : '' }}</span>
         <button
           @click="auth.logout(); router.push('/login')"
           class="rounded-md bg-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-300"
@@ -103,33 +93,14 @@ function formatDate(dateStr: string) {
     </div>
 
     <div v-else class="space-y-3">
-      <div
+      <NoteListItem
         v-for="note in notesStore.notes"
         :key="note.id"
-        class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
-      >
-        <div class="flex items-start justify-between">
-          <div class="min-w-0 flex-1 cursor-pointer" @click="viewNote(note.id)">
-            <h3 class="truncate text-lg font-semibold text-gray-900">{{ note.title }}</h3>
-            <p class="mt-1 text-sm text-gray-500">{{ formatDate(note.createdAt) }}</p>
-            <p v-if="note.content" class="mt-1 truncate text-sm text-gray-400">{{ note.content }}</p>
-          </div>
-          <div class="ml-4 flex shrink-0 gap-2">
-            <button
-              @click="editNote(note.id)"
-              class="rounded-md px-2.5 py-1.5 text-sm text-gray-600 hover:bg-gray-100"
-            >
-              Edit
-            </button>
-            <button
-              @click="deleteNote(note.id)"
-              class="rounded-md px-2.5 py-1.5 text-sm text-red-600 hover:bg-red-50"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
+        :note="note"
+        @view="viewNote"
+        @edit="editNote"
+        @delete="deleteNote"
+      />
     </div>
 
     <div v-if="notesStore.totalPages > 1" class="mt-6 flex items-center justify-center gap-2">

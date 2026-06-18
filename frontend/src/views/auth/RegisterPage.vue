@@ -2,9 +2,9 @@
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import type { AxiosError } from 'axios'
-import type { RegisterRequest } from '@/core/api/authApi'
-import { useAuthStore } from '@/core/stores/auth'
-import type { ErrorResponse } from '@/core/api/type'
+import type { RegisterRequest } from '@/api/authApi'
+import { useAuthStore } from '@/stores/auth'
+import type { ErrorResponse } from '@/types/api'
 
 const router = useRouter()
 const auth = useAuthStore()

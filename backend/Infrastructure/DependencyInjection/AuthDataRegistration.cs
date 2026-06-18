@@ -11,8 +11,7 @@ public static class AuthDataRegistration
         {
             var contextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
             var userIdClaim = contextAccessor.HttpContext?.User.FindFirst("userId")?.Value;
-
-            Console.WriteLine(userIdClaim);
+            Console.WriteLine("User ID Claim: " + userIdClaim);
             if (userIdClaim is null || !Guid.TryParse(userIdClaim, out var userId))
                 throw new UnauthorizedAccessException("User is not authenticated.");
 

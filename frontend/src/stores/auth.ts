@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { authApi, type LoginRequest, type RegisterRequest } from '@/core/api/authApi'
+import { authApi, type LoginRequest, type RegisterRequest } from '@/api/authApi'
 
 export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(localStorage.getItem('accessToken'))

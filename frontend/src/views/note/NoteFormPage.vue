@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useNotesStore } from '@/core/stores/note'
-import type { CreateNoteRequest, UpdateNoteRequest } from '@/core/api/noteApi'
+import { useNotesStore } from '@/stores/note'
+import type { CreateNoteRequest, UpdateNoteRequest } from '@/api/noteApi'
 import type { AxiosError } from 'axios'
-import type { ErrorResponse } from '@/core/api/type'
+import type { ErrorResponse } from '@/types/api'
 
 const route = useRoute()
 const router = useRouter()
