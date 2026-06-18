@@ -64,6 +64,6 @@ docker compose up --build
 - Backend API: http://localhost:5001
 - Swagger: http://localhost:5001/swagger
 
-Three containers: `frontend`, `backend`, `sqlserver`. Frontend uses `serve` for static files — no Nginx.
+Three containers: `frontend`, `backend`, `sqlserver`.
 
 ---
