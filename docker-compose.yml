@@ -24,7 +24,7 @@ services:
       Jwt__Issuer: NoteAppApi
       Jwt__Audience: note-app
     ports:
-      - "5001:5001"
+      - "5001:5001"   
     depends_on:
       sqlserver:
         condition: service_healthy
