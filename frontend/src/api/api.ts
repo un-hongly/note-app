@@ -21,11 +21,11 @@ http.interceptors.response.use(
   (response) => response,
   (error: AxiosError<ErrorResponse>) => {
     if (error.response?.status === 401) {
-      const hadToken = !!localStorage.getItem('accessToken')
+      // const hadToken = !!localStorage.getItem('accessToken')
       localStorage.removeItem('accessToken')
-      if (hadToken) {
-        window.location.href = '/login'
-      }
+      // if (hadToken) {
+      //   window.location.replace('/login')
+      // }
     }
     return Promise.reject(error)
   },

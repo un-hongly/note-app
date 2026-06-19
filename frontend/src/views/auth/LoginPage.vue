@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import type { LoginRequest } from '@/api/authApi'
@@ -15,15 +15,19 @@ const form = reactive<LoginRequest>({
 })
 
 const error = reactive({ message: '' })
+const loading = ref(false)
 
 async function handleSubmit() {
   error.message = ''
+  loading.value = true
   try {
     await auth.login(form)
     router.push('/notes')
   } catch (e) {
     const axiosError = e as AxiosError<ErrorResponse>
     error.message = axiosError.response?.data?.message || 'Login failed'
+  } finally {
+    loading.value = false
   }
 }
 </script>
@@ -56,9 +60,15 @@ async function handleSubmit() {
         <p v-if="error.message" class="text-sm text-red-600">{{ error.message }}</p>
         <button
           type="submit"
-          class="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          :disabled="loading"
+          class="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Sign In
+          <svg v-if="loading" class="-ml-1 mr-2 inline h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          <span v-if="!loading">Sign In</span>
+          <span v-else>Signing in...</span>
         </button>
       </form>
       <p class="mt-4 text-center text-sm text-gray-600">
