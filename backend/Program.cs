@@ -12,6 +12,7 @@ DbUpInitializer.Run(builder.Configuration.GetConnectionString("DefaultConnection
 builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+builder.Services.AddRateLimiting(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -49,6 +50,7 @@ var app = builder.Build();
 
 app.UsePathBase("/api");
 app.UseCors();
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
