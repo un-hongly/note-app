@@ -47,6 +47,7 @@ var app = builder.Build();
 //     app.MapOpenApi();
 // }
 
+app.UsePathBase("/api");
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
