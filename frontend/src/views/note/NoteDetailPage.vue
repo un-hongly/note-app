@@ -3,6 +3,7 @@ import type { Note } from '@/types/Note'
 import { useNotesStore } from '@/stores/note'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { formatDate } from '@/utils/helpers'
 
 const route = useRoute()
 const router = useRouter()
@@ -19,16 +20,6 @@ onMounted(async () => {
     loading.value = false
   }
 })
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-}
 </script>
 
 <template>
