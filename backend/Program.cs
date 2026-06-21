@@ -8,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // global Dapper config
 Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
 
+// Db Migration at Startup
 DbUpInitializer.Run(builder.Configuration.GetConnectionString("DefaultConnection"));
+
 builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
@@ -57,5 +59,6 @@ app.MapControllers();
 app.UseSwagger();
 app.UseSwaggerUI(c => c.ConfigObject.AdditionalItems["persistAuthorization"] = true);
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<HttpLoggingMiddleware>();
 
 app.Run();
